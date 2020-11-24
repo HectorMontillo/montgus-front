@@ -46,14 +46,41 @@
             <!-- Signup -->
             <v-window-item :value="2">
               <v-card-text>
-                <v-text-field label="Password" type="password"></v-text-field>
-                <v-text-field
-                  label="Confirm Password"
-                  type="password"
-                ></v-text-field>
-                <span class="caption grey--text text--darken-1">
-                  Please enter a password for your account
-                </span>
+                <v-form v-model="signup.valid">
+                  <v-text-field
+                    v-model="signup.email"
+                    :rules="[rules.required, rules.emailMatch]"
+                    type="text"
+                    name="email"
+                    label="Correo Electrónico"
+                    class="mb-5"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="signup.username"
+                    :rules="[rules.required]"
+                    type="text"
+                    name="username"
+                    label="Nombre de Usuario"
+                    class="mb-5"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="signup.password"
+                    :append-icon="signup.show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="[rules.required]"
+                    :type="signup.show ? 'text' : 'password'"
+                    name="pass"
+                    label="Contraseña"
+                    counter
+                    @click:append="signup.show = !signup.show"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="signup.repassword"
+                    :rules="[rules.required, rules.repassword]"
+                    :type="signup.show ? 'text' : 'password'"
+                    name="repass"
+                    label="Repita la contraseña"
+                  ></v-text-field>
+                </v-form>
               </v-card-text>
             </v-window-item>
           </v-window>
@@ -68,8 +95,8 @@
                   color="primary"
                   elevation="2"
                   class="grey--text text--darken-3"
-                  @click="step === 1 ? ingresar() : registar()"
-                  :disabled="step === 1 ? !login.valid : false"
+                  @click="step === 1 ? ingresar() : registrar()"
+                  :disabled="disabled"
                   >{{ step === 1 ? "Ingresar" : "Registrarse" }}</v-btn
                 >
               </v-col>
@@ -92,24 +119,38 @@
 import authService from "../services/auth";
 
 export default {
-  data: () => ({
-    step: 1,
-    imageUrl: process.env.VUE_APP_SERVER + "/images/",
-    login: {
-      valid: true,
-      email: "",
-      password: "",
-      show: false,
-    },
-    rules: {
-      required: (value) => !!value || "Requerido.",
-      min: (v) => v.length >= 6 || "Mínimo 6 caracteres.",
-      emailMatch: (v) =>
-        !v ||
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-        "E-mail must be valid",
-    },
-  }),
+  data() {
+    return {
+      step: 1,
+      imageUrl: process.env.VUE_APP_SERVER + "/images/",
+      login: {
+        valid: true,
+        email: "",
+        password: "",
+        show: false,
+      },
+      signup: {
+        valid: true,
+        email: "",
+        username: "",
+        password: "",
+        repassword: "",
+        show: false,
+      },
+      rules: {
+        required: (value) => !!value || "Requerido.",
+        min: (v) => v.length >= 6 || "Mínimo 6 caracteres.",
+        repassword: (v) =>
+          v === this.signup.password || "Las contraseñas no coinciden",
+        password: (v) =>
+          v === this.signup.repassword || "Las contraseñas no coinciden",
+        emailMatch: (v) =>
+          !v ||
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "E-mail must be valid",
+      },
+    };
+  },
   methods: {
     async ingresar() {
       try {
@@ -119,12 +160,27 @@ export default {
         });
         this.$store.commit("raiseMsg", "Bienvenido!");
         localStorage.setItem("jwt", response.token);
+        this.$router.push("/home");
       } catch (error) {
         this.login.password = "";
-        this.$store.commit("raiseError", error.mensaje);
+        this.$store.commit("raiseError", error.response.data.mensaje);
       }
     },
-    registrar() {},
+    async registrar() {
+      try {
+        const response = await authService.signup({
+          email: this.signup.email,
+          password: this.signup.password,
+          username: this.signup.username,
+        });
+        this.$store.commit("raiseMsg", "Registro exitoso!");
+        localStorage.setItem("jwt", response.token);
+        this.$router.push("/home");
+      } catch (error) {
+        this.login.password = "";
+        this.$store.commit("raiseError", error.response.data.mensaje);
+      }
+    },
     next() {
       if (this.step === 1) {
         this.step = 2;
@@ -134,6 +190,11 @@ export default {
     },
   },
   computed: {
+    disabled() {
+      if (this.step === 1 && !this.login.valid) return true;
+      if (this.step === 2 && !this.signup.valid) return true;
+      return false;
+    },
     currentTitle() {
       switch (this.step) {
         case 1:

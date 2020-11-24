@@ -1,20 +1,30 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/login",
-  },
-  {
-    path: "/login",
     name: "Login",
     component: Login,
     meta: {
       title: "Login - Montgus",
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("jwt") == null) next();
+      else next("/home");
+    },
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
+    meta: {
+      title: "Home - Montgus",
+      requiresAuth: true,
     },
   },
 ];
@@ -37,7 +47,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (localStorage.getItem("jwt") == null) {
       next({
-        name: "login",
+        name: "Login",
       });
     } else {
       next();
