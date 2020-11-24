@@ -6,12 +6,10 @@ async function login(data) {
     url: "/api/login",
     data,
   };
-  try {
-    const response = await axios(config);
-    return response.data;
-  } catch (error) {
-    return err.response.data;
-  }
+
+  const response = await axios(config);
+  return response.data;
+ 
 }
 
 export default {

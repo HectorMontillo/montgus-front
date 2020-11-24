@@ -122,7 +122,7 @@ export default {
         localStorage.setItem("jwt", response.token);
       } catch (error) {
         this.login.password = "";
-        this.$store.commit("raiseError", error.mensaje);
+        this.$store.commit("raiseError", error.response.data.mensaje);
       }
     },
     registrar() {},
