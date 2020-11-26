@@ -1,9 +1,17 @@
 <template>
   <v-container>
-    <h1>Hola mundo</h1>
+    <ContinuarAprendiendo />
+    <LeccionesRecomendadas />
   </v-container>
 </template>
 
 <script>
-export default {};
+import ContinuarAprendiendo from "../components/ContinuarAprendiendo";
+import LeccionesRecomendadas from "../components/LeccionesRecomendadas";
+export default {
+  components: {
+    ContinuarAprendiendo,
+    LeccionesRecomendadas,
+  },
+};
 </script>
