@@ -36,6 +36,11 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <v-btn block outlined color="primary" @click="verMas()">Ver más!</v-btn>
+      </v-col>
+    </v-row>
   </v-sheet>
 </template>
 
@@ -89,6 +94,9 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    verMas() {},
   },
 };
 </script>
