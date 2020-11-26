@@ -1,6 +1,11 @@
 <template>
   <v-container class="fill-height" fluid>
     <span class="bg-image"></span>
+    <v-row>
+    <v-col cols="12">
+      <navegacion></navegacion>
+    </v-col>
+  </v-row>
     <v-row align="center" justify="center">
       <v-col cols="7" sm="5">
         <v-img

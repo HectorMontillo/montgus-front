@@ -5,6 +5,12 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 
+//importamos los componentes
+import NavigationDrawer from './assets/components/NavigationDrawer';
+
+//Creación de los componentes
+Vue.component('navegacion', NavigationDrawer);
+
 Vue.config.productionTip = false
 
 new Vue({
