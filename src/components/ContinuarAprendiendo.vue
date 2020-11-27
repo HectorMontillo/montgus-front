@@ -2,7 +2,7 @@
   <v-sheet class="mx-auto" max-width="1000">
     <h1 class="text-h6">Continuar aprendiendo</h1>
     <v-divider></v-divider>
-    <v-slide-group center-active show-arrows>
+    <v-slide-group center-active>
       <v-slide-item
         v-for="card in data"
         :key="card.id"
