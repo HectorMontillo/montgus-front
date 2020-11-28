@@ -18,6 +18,7 @@
         <v-flex>
           <p class="mt-4 mb-0 heading">{{usuario.nombre}}</p>
         </v-flex>
+          <v-icon>mdi-Settings</v-icon>
         <v-flex>
           <small>{{usuario.correo}}</small>
         </v-flex>
@@ -81,8 +82,8 @@
           { title: 'Marketing voz a voz', icon: 'mdi-forum' },
         ],
         lecTomadas: [
-          { title: 'El logo percecto', icon: 'mdi-view-dashboard', terminada: true },
-          { title: 'Clusters', icon: 'mdi-forum', terminada: true },
+          { title: 'El logo percecto', icon: 'mdi-view-dashboard', terminada: true},
+          { title: 'Clusters', icon: 'mdi-forum', terminada: true},
         ],
       }
     },
