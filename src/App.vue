@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <v-main>
+      <AppBar v-if="hide" />
+      <NavigationBottom v-if="hide" />
       <router-view></router-view>
       <v-snackbar color="red" :timeout="-1" :value="$store.state.error">
         {{ $store.state.errorMsg }}
@@ -27,13 +29,25 @@
 <script>
 import { mapMutations } from "vuex";
 import checkConection from "./services/checkConection";
+import AppBar from "./components/AppBar";
+import NavigationBottom from "./components/NavigationBottom";
 
 export default {
   name: "App",
 
-  components: {},
+  components: {
+    AppBar,
+    NavigationBottom,
+  },
 
   data: () => ({}),
+
+  computed: {
+    hide() {
+      console.log(this.$route.path);
+      return this.$route.name == "Login" ? false : true;
+    },
+  },
 
   methods: {
     ...mapMutations(["dismissError", "dismissMsg"]),
