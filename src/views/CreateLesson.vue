@@ -1,10 +1,6 @@
 <template>
     <v-container>
-        <div>
-            <v-btn color="black" dark small icon>
-                <v-icon dark center small>mdi-close</v-icon>
-            </v-btn>
-        </div>
+        
         <h1 class="text-h6 mt-3">Crear tu lección</h1>
         
         <v-row>
@@ -60,34 +56,12 @@
         </v-row>
         <v-row>
             <v-col cols=12>
-                <h5 class="mb-2">Selecciona un icono</h5>
-                <v-bottom-navigation v-model="value">
-                    <v-btn value="handshake">
-                        <v-icon>mdi-handshake-outline</v-icon>
-                    </v-btn>
-
-                    <v-btn value="domain">
-                        <v-icon>mdi-domain</v-icon>
-                    </v-btn>
-
-                    <v-btn value="voice">
-                        <v-icon>mdi-account-tie-voice</v-icon>
-                    </v-btn>
-                    <v-btn value="clipboard">
-                        <v-icon>mdi-clipboard-multiple-outline</v-icon>
-                    </v-btn>
-                    <v-btn value="equalizer">
-                        <v-icon>mdi-equalizer</v-icon>
-                    </v-btn>
-                    
-                </v-bottom-navigation> 
+                <h5 class="mb-2">Cargar portada</h5>
+                <v-btn>
+                    <v-icon>mdi-upload</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
-
-        <v-btn>
-            <span>Cargar Icono</span>
-            <v-icon>mdi-upload</v-icon>
-        </v-btn>
 
         <v-row align="center" justify="center" class="mt-4">
             <v-btn
@@ -129,7 +103,8 @@
       },
       reset () {
         //de momento se puso a que resete el form
-        this.$refs.form.reset()
+        //this.$refs.form.reset()
+        this.$router.push('/home')
       }
     }
   }
