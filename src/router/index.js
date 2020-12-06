@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
 import CreateLesson from "../views/CreateLesson.vue";
+import PostLesson from "../views/PostLesson.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,15 @@ const routes = [
     component: CreateLesson,
     meta: {
       title: "Create - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/post",
+    name: "post",
+    component: PostLesson,
+    meta: {
+      title: "Post - Montgus",
       requiresAuth: true,
     },
   },

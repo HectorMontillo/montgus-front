@@ -66,7 +66,7 @@
         <v-row align="center" justify="center" class="mt-4">
             <v-btn
                 color="#ffd000"
-                @click="reset"
+                @click="create"
                 >
                 Crear Lección
                 </v-btn>
@@ -101,10 +101,10 @@
           this.snackbar = true
         }
       },
-      reset () {
+      create () {
         //de momento se puso a que resete el form
         //this.$refs.form.reset()
-        this.$router.push('/home')
+        this.$router.push('/post')
       }
     }
   }
