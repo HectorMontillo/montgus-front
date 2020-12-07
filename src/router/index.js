@@ -4,6 +4,8 @@ import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
 import CreateLesson from "../views/CreateLesson.vue";
 import PostLesson from "../views/PostLesson.vue";
+import ViewLesson from "../views/ViewLesson.vue";
+
 
 Vue.use(VueRouter);
 
@@ -44,6 +46,15 @@ const routes = [
     component: PostLesson,
     meta: {
       title: "Post - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/view",
+    name: "view",
+    component: ViewLesson,
+    meta: {
+      title: "View - Montgus",
       requiresAuth: true,
     },
   },

@@ -5,7 +5,7 @@
         
         <v-row>
             <v-col cols=10 class="mt-2">
-              <v-card color="blue-grey darken-2">
+              <v-card color="#1E1E1E">
                 <v-card-text class="white--text">
                     <div>
                         <span>Las lecciones más exitosas son aquellas que son cortas e interactivas</span>
@@ -17,7 +17,7 @@
 
         <v-row>
             <v-col cols=10 offset="2" class="mt-0">
-              <v-card color="blue-grey darken-2">
+              <v-card color="#1E1E1E">
                 <v-card-text class="white--text">
                     <div>
                         <span>Por cada página tendras 256 caracteres. Usa al máximo tu creatividad!!</span>
