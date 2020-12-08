@@ -4,7 +4,7 @@
     <v-divider></v-divider>
     <v-row>
       <v-col cols="12" md="6" v-for="card in data" :key="card.id">
-        <v-card height="150">
+        <v-card height="150" @click="verLeccion(card)">
           <v-img
             :src="imageUrl + card.image"
             class="white--text align-end"
@@ -41,16 +41,29 @@
         <v-btn block outlined color="primary" @click="verMas()">Ver más!</v-btn>
       </v-col>
     </v-row>
+    <DescriptionModal v-bind="leccionSeleccionada" />
   </v-sheet>
 </template>
 
 <script>
+import DescriptionModal from "./DescriptionModal";
+
 export default {
   name: "LeccionesRecomendadas",
+  components: { DescriptionModal },
   data() {
     return {
       imageUrl: process.env.VUE_APP_SERVER + "/images/",
-
+      leccionSeleccionada: {
+        dialog: false,
+        id: "",
+        titulo: "",
+        username: "",
+        description: "",
+        image: "",
+        rating: "",
+        certified: "",
+      },
       data: [
         {
           id: "0",
@@ -97,6 +110,10 @@ export default {
   },
   methods: {
     verMas() {},
+    verLeccion(leccion) {
+      this.leccionSeleccionada = leccion;
+      this.leccionSeleccionada.dialog = true;
+    },
   },
 };
 </script>

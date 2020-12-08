@@ -106,6 +106,16 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-divider></v-divider>
+      <v-list dense>
+        <v-list-item @click="logout">
+          <v-list-item-icon>
+            <v-icon>mdi-exit-to-app</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Cerrar sesión</v-list-item-title>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
     <!-- 
 
