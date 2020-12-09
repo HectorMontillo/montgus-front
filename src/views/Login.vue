@@ -221,7 +221,7 @@ export default {
       rgba(0, 0, 0, 0.2) 0%,
       rgba(0, 0, 0, 0.5) 100%
     ),
-    url("http://localhost:3000/images/background_image.jpg") no-repeat center
+    url("http://157.230.89.53:3000/images/background_image.jpg") no-repeat center
       center;
 
   background-size: cover;
