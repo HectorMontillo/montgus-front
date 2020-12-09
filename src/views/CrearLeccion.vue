@@ -59,6 +59,7 @@
                       required
                       ></v-text-field>
                       <v-file-input
+                        @change="onAddFile"
                         :rules="portadaRules"
                         accept="image/png, image/jpeg, image/bmp"
                         prepend-icon=""
@@ -88,6 +89,8 @@
 
 
 <script>
+  import LeccionesService from "../services/lecciones";
+
   export default {
     data: () => ({
       valid: false,
@@ -102,6 +105,7 @@
         v => (v && v.length <= 100) || 'La descripción debe tener menos de 100 caracteres'
       
       ],
+      portadaFile: undefined,
       portadaRules: [
         v => !!v || 'La portada es requerida',
         v => !v || v.size < 10000000 || 'El tamaño de la portada debe ser menor a 10 MB!',
@@ -109,16 +113,33 @@
       value: 'recent',
     }),
     methods: {
+      /*
       validate () {
         if (this.$refs.form.validate()) {
           this.snackbar = true
         }
+      },*/
+      onAddFile(file){
+        this.portadaFile = file
       },
-      create () {
-        //de momento se puso a que resete el form
-        //this.$refs.form.reset()
-        console.log(this.valid)
-        this.$router.push('/post_leccion')
+      async create () {
+        
+        try {
+          
+          const response = await LeccionesService.createLeccion({
+            nombre: this.name,
+            descripcion: this.description,
+            file: this.portadaFile
+
+          });
+          this.$store.commit("raiseMsg", "Lección creada satisfactoriamente");
+          this.$router.push('/post_leccion')
+        } catch (error) {
+          console.log(error)
+          this.$store.commit("raiseError", error.response.data.mensaje);
+        } 
+
+        
       }
     }
   }
