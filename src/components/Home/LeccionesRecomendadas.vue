@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="mx-auto mt-4" max-width="1000">
-    <h1 class="text-h6">Lecciones recomendadas</h1>
+    <h1 class="text-h6">{{ title }}</h1>
     <v-divider></v-divider>
     <v-row>
       <v-col cols="12" md="6" v-for="card in data" :key="card.id">
@@ -51,6 +51,12 @@ import DescriptionModal from "./DescriptionModal";
 export default {
   name: "LeccionesRecomendadas",
   components: { DescriptionModal },
+  props: {
+    title: {
+      type: String,
+      default: "Lecciones"
+    }
+  },
   data() {
     return {
       imageUrl: process.env.VUE_APP_SERVER + "/images/",

@@ -1,12 +1,12 @@
 <template>
   <v-bottom-navigation value="1" color="primary" grow dark app>
-    <v-btn>
+    <v-btn to="/home">
       <span>Home</span>
 
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn>
+    <v-btn to="/creaciones">
       <span>Creaciones</span>
 
       <v-icon>mdi-book</v-icon>

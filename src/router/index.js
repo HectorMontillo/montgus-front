@@ -2,6 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Home from "../views/Home.vue";
+import Creaciones from "../views/Creaciones.vue";
+import CrearLeccion from "../views/CrearLeccion.vue";
+import PostLeccion from "../views/PostLeccion.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +27,33 @@ const routes = [
     component: Home,
     meta: {
       title: "Home - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/creaciones",
+    name: "Creaciones",
+    component: Creaciones,
+    meta: {
+      title: "Mis creaciones - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/crear_leccion",
+    name: "CrearLeccion",
+    component: CrearLeccion,
+    meta: {
+      title: "Crear leccion - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/post_leccion",
+    name: "postLeccion",
+    component: PostLeccion,
+    meta: {
+      title: "Crear leccion - Montgus",
       requiresAuth: true,
     },
   },

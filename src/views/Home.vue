@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <ContinuarAprendiendo />
-    <LeccionesRecomendadas />
+    <LeccionesRecomendadas title="Lecciones recomendadas"/>
   </v-container>
 </template>
 
