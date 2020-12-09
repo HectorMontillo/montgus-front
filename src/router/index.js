@@ -50,7 +50,7 @@ const routes = [
   },
   {
     path: "/post_leccion",
-    name: "postLeccion",
+    name: "PostLeccion",
     component: PostLeccion,
     meta: {
       title: "Crear leccion - Montgus",

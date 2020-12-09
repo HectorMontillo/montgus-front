@@ -19,6 +19,19 @@ async function createLeccion(data) {
   return response.data;
 }
 
+async function setContentLeccion(id, slides) {
+  const config = {
+    method: "post",
+    url: "/api/lecciones/" + id,
+    headers: authHeaders(),
+    data: { slides },
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
 export default {
   createLeccion,
+  setContentLeccion,
 };

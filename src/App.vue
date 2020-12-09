@@ -40,12 +40,20 @@ export default {
     NavigationBottom,
   },
 
-  data: () => ({}),
+  data: () => ({
+    hidePages: ["Login", "PostLeccion"],
+  }),
 
   computed: {
     hide() {
-      console.log(this.$route.path);
-      return this.$route.name == "Login" ? false : true;
+      console.log(this.$route.name);
+
+      console.log(this.hidePages.includes(this.$route.name));
+      if (this.hidePages.includes(this.$route.name)) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 
