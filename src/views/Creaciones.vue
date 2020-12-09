@@ -1,19 +1,18 @@
 <template>
   <v-container>
-    <LeccionesRecomendadas title="Mis lecciones"/>
+    <LeccionesRecomendadas title="Mis lecciones" filter="creadas" />
     <v-btn
-        
-        color="primary"
-        fab
-        dark
-        bottom
-        right
-        fixed
-        class="mb-14"
-        to="/crear_leccion"
-      >
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
+      color="primary"
+      fab
+      dark
+      bottom
+      right
+      fixed
+      class="mb-14"
+      to="/crear_leccion"
+    >
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
   </v-container>
 </template>
 

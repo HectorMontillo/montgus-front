@@ -1,25 +1,14 @@
 <template>
   <v-dialog v-model="dialog" width="300">
     <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-      <template slot="progress">
-        <v-progress-linear
-          color="deep-purple"
-          height="10"
-          indeterminate
-        ></v-progress-linear>
-      </template>
+      <v-img height="250" :src="imageUrl + card.image"></v-img>
 
-      <v-img
-        height="250"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-      ></v-img>
-
-      <v-card-title>Cafe Badilico</v-card-title>
+      <v-card-title>{{ titulo }}</v-card-title>
 
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
-            :value="4.5"
+            :value="rating"
             color="amber"
             dense
             half-increments
@@ -40,28 +29,8 @@
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card-title>Tonight's availability</v-card-title>
-
-      <v-card-text>
-        <v-chip-group
-          v-model="selection"
-          active-class="deep-purple accent-4 white--text"
-          column
-        >
-          <v-chip>5:30PM</v-chip>
-
-          <v-chip>7:30PM</v-chip>
-
-          <v-chip>8:00PM</v-chip>
-
-          <v-chip>9:00PM</v-chip>
-        </v-chip-group>
-      </v-card-text>
-
       <v-card-actions>
-        <v-btn color="deep-purple lighten-2" text @click="reserve">
-          Reserve
-        </v-btn>
+        <v-btn color="deep-purple lighten-2" text> Reserve </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -78,9 +47,10 @@ export default {
     description: "",
     image: "",
     rating: "",
-    certified: "",
+    graduated: "",
   },
   data: () => ({
+    imageUrl: process.env.VUE_APP_SERVER + "/uploads/portadas/",
     loading: false,
     selection: 1,
   }),

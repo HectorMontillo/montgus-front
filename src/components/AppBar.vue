@@ -66,17 +66,17 @@
       <v-layout mt-4 column align-center>
         <v-flex>
           <v-avatar>
-            <img v-bind:src="usuario.foto" />
+            <img :src="user.gravatar" />
           </v-avatar>
         </v-flex>
         <v-flex>
-          <p class="mt-4 mb-0 heading">{{ usuario.nombre }}</p>
+          <p class="mt-4 mb-0 heading">{{ user.username }}</p>
         </v-flex>
         <v-flex>
-          <small>{{ usuario.correo }}</small>
+          <small>{{ user.email }}</small>
         </v-flex>
       </v-layout>
-
+      <!--
       <h4 class="ml-3 mt-4">Mis creaciones</h4>
       <v-divider></v-divider>
 
@@ -106,6 +106,8 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      -->
 
       <v-divider></v-divider>
       <v-list dense>
@@ -140,10 +142,16 @@
 </template>
 
 <script>
+import userService from "../services/user";
 export default {
   name: "AppBar",
   data: () => ({
     imageUrl: process.env.VUE_APP_SERVER + "/images/",
+    user: {
+      username: "",
+      email: "",
+      gravatar: "",
+    },
     drawer: false,
     group: null,
     usuario: {
@@ -164,6 +172,14 @@ export default {
       { title: "Clusters", icon: "mdi-forum", terminada: true },
     ],
   }),
+  async created() {
+    try {
+      this.user = await userService.getUser();
+    } catch (error) {
+      console.log(error);
+      this.$store.commit("raiseError", "Error obteniendo datos del usuario");
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem("jwt");
