@@ -125,10 +125,15 @@ export default {
       this.dialog = true;
       this.leccionSeleccionada = leccion;
     },
-    goLeccion() {
+    async goLeccion() {
       if (this.filter === "recomendadas") {
-        this.$store.commit("setLeccionViewId", this.leccionSeleccionada.id);
-        this.$router.push("/view_leccion/" + this.leccionSeleccionada.id);
+        try {
+          await LeccionesService.tomarLeccion(this.leccionSeleccionada.id);
+          this.$store.commit("setLeccionViewId", this.leccionSeleccionada.id);
+          this.$router.push("/view_leccion/" + this.leccionSeleccionada.id);
+        } catch (error) {
+          this.$store.commit("raiseError", error.response.data.mensaje);
+        }
       } else if (this.filter === "creadas") {
         this.$store.commit("setLeccionEditId", this.leccionSeleccionada.id);
         this.$router.push("/post_leccion");

@@ -93,6 +93,42 @@ async function getLeccionesRecomendadas() {
   return response.data;
 }
 
+async function tomarLeccion(id) {
+  const config = {
+    method: "post",
+    url: "/api/lecciones/take/" + id,
+    headers: authHeaders(),
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
+async function terminarLeccion(id, rating) {
+  const config = {
+    method: "post",
+    url: "/api/lecciones/finish/" + id,
+    headers: authHeaders(),
+    data: {
+      rating,
+    },
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
+async function leccionesSinTerminar() {
+  const config = {
+    method: "get",
+    url: "/api/lecciones/not_finished/",
+    headers: authHeaders(),
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
 export default {
   createLeccion,
   setContentLeccion,
@@ -101,4 +137,7 @@ export default {
   getContentLeccion,
   updateLeccionData,
   eliminarLeccion,
+  tomarLeccion,
+  terminarLeccion,
+  leccionesSinTerminar,
 };

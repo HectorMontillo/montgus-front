@@ -1,7 +1,7 @@
 <template>
   <v-bottom-navigation value="1" color="primary" grow dark app>
     <v-btn to="/home">
-      <span>Home</span>
+      <span>Inicio</span>
 
       <v-icon>mdi-home</v-icon>
     </v-btn>
@@ -13,7 +13,7 @@
     </v-btn>
 
     <v-btn>
-      <span>Certificados</span>
+      <span>Logros</span>
 
       <v-icon>mdi-school</v-icon>
     </v-btn>

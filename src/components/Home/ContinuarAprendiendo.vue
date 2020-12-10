@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" max-width="1000">
+  <v-sheet v-if="data.length" class="mx-auto" max-width="1000">
     <h1 class="text-h6">Continuar aprendiendo</h1>
     <v-divider></v-divider>
     <v-slide-group center-active>
@@ -15,10 +15,11 @@
             :class="active ? 'text--primary' : ''"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="150"
+            @click="goLeccion(card.id)"
           >
             <v-card-subtitle
               class="white--text"
-              v-text="card.title"
+              v-text="card.titulo"
             ></v-card-subtitle>
           </v-img>
         </v-card>
@@ -28,40 +29,29 @@
 </template>
 
 <script>
+import LeccionesService from "../../services/lecciones";
 export default {
   name: "ContinuarAprendiendo",
   data() {
     return {
       model: null,
-      imageUrl: process.env.VUE_APP_SERVER + "/images/",
-      data: [
-        {
-          id: "0",
-          title: "Finanzas personales",
-          image: "background_image.jpg",
-        },
-        {
-          id: "1",
-          title: "Encuentra el socio correcto",
-          image: "background_image.jpg",
-        },
-        {
-          id: "2",
-          title: "Diseña una landing impactante",
-          image: "background_image.jpg",
-        },
-        {
-          id: "3",
-          title: "Finanzas empresariales",
-          image: "background_image.jpg",
-        },
-        {
-          id: "4",
-          title: "Seguros",
-          image: "background_image.jpg",
-        },
-      ],
+      imageUrl: process.env.VUE_APP_SERVER + "/uploads/portadas/",
+      data: [],
     };
+  },
+  methods: {
+    goLeccion(id) {
+      this.$router.push("/view_leccion/" + id);
+    },
+  },
+  async created() {
+    try {
+      this.data = await LeccionesService.leccionesSinTerminar();
+    } catch (error) {
+      this.$store.commit("raiseError", error.response.data.mensaje);
+    }
+
+    console.log(this.data);
   },
 };
 </script>
