@@ -127,7 +127,11 @@ export default {
     },
     goLeccion() {
       if (this.filter === "recomendadas") {
+        this.$store.commit("setLeccionViewId", this.leccionSeleccionada.id);
         this.$router.push("/view_leccion/" + this.leccionSeleccionada.id);
+      } else if (this.filter === "creadas") {
+        this.$store.commit("setLeccionEditId", this.leccionSeleccionada.id);
+        this.$router.push("/post_leccion");
       }
     },
   },

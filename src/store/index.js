@@ -8,6 +8,7 @@ export default new Vuex.Store({
     user: null,
     jwt: localStorage.getItem("jwt"),
     leccionEditId: null,
+    leccionViewId: null,
     error: false,
     msg: false,
     errorMsg: "",
@@ -22,6 +23,9 @@ export default new Vuex.Store({
   mutations: {
     setLeccionEditId(state, id) {
       state.leccionEditId = id;
+    },
+    setLeccionViewId(state, id) {
+      state.leccionViewId = id;
     },
     setUser(state, user) {
       state.user = user;

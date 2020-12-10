@@ -21,9 +21,50 @@ async function createLeccion(data) {
 async function setContentLeccion(id, slides) {
   const config = {
     method: "post",
-    url: "/api/lecciones/" + id,
+    url: "/api/lecciones/content/" + id,
     headers: authHeaders(),
     data: { slides },
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
+async function eliminarLeccion(id) {
+  const config = {
+    method: "delete",
+    url: "/api/lecciones/" + id,
+    headers: authHeaders(),
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
+async function updateLeccionData(id, data, file) {
+  const formData = new FormData();
+
+  if (file) formData.append("portada", file);
+
+  formData.append("nombre", data.nombre);
+  formData.append("descripcion", data.descripcion);
+
+  const config = {
+    method: "put",
+    url: "/api/lecciones/" + id,
+    headers: { ...authHeaders(), "Content-Type": "multipart/form-data" },
+    data: formData,
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
+async function getContentLeccion(id) {
+  const config = {
+    method: "get",
+    url: "/api/lecciones/content/" + id,
+    headers: authHeaders(),
   };
 
   const response = await axios(config);
@@ -57,4 +98,7 @@ export default {
   setContentLeccion,
   getLeccionesCreadas,
   getLeccionesRecomendadas,
+  getContentLeccion,
+  updateLeccionData,
+  eliminarLeccion,
 };
