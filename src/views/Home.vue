@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <ContinuarAprendiendo />
-    <LeccionesRecomendadas title="Lecciones recomendadas"/>
+    <LeccionesRecomendadas
+      title="Lecciones recomendadas"
+      filter="recomendadas"
+    />
   </v-container>
 </template>
 

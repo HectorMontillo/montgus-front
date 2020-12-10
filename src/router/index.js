@@ -5,6 +5,7 @@ import Home from "../views/Home.vue";
 import Creaciones from "../views/Creaciones.vue";
 import CrearLeccion from "../views/CrearLeccion.vue";
 import PostLeccion from "../views/PostLeccion.vue";
+import ViewLeccion from "../views/ViewLeccion.vue";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,15 @@ const routes = [
     path: "/post_leccion",
     name: "PostLeccion",
     component: PostLeccion,
+    meta: {
+      title: "Crear leccion - Montgus",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/view_leccion/:leccionId",
+    name: "ViewLeccion",
+    component: ViewLeccion,
     meta: {
       title: "Crear leccion - Montgus",
       requiresAuth: true,

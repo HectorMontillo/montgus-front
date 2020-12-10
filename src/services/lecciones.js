@@ -1,5 +1,4 @@
 import axios from "axios";
-//import FormData from "form-data";
 import authHeaders from "./authHeaders";
 
 async function createLeccion(data) {
@@ -42,8 +41,20 @@ async function getLeccionesCreadas() {
   return response.data;
 }
 
+async function getLeccionesRecomendadas() {
+  const config = {
+    method: "get",
+    url: "/api/lecciones/recomendadas",
+    headers: authHeaders(),
+  };
+
+  const response = await axios(config);
+  return response.data;
+}
+
 export default {
   createLeccion,
   setContentLeccion,
   getLeccionesCreadas,
+  getLeccionesRecomendadas,
 };

@@ -47,38 +47,41 @@
       </v-col>
     </v-row>
     -->
-    <v-dialog v-model="dialog">
-      <v-card class="mx-auto my-12">
-        <v-img height="250" :src="imageUrl + leccionSeleccionada.image"></v-img>
+    <v-dialog v-model="dialog" max-width="500">
+      <v-card>
+        <v-img
+          height="250"
+          :src="imageUrl + leccionSeleccionada.image"
+          class="white--text align-end"
+        >
+          <v-card-text>
+            <v-row dark justify="end">
+              <div>
+                <span>{{ leccionSeleccionada.rating }}</span>
+                <v-icon class="mr-2" dark>mdi-star</v-icon>
+              </div>
+              <div>
+                <span>{{ leccionSeleccionada.graduates }}</span>
+
+                <v-icon class="mr-4" dark>mdi-account</v-icon>
+              </div>
+            </v-row>
+          </v-card-text>
+        </v-img>
 
         <v-card-title>{{ leccionSeleccionada.titulo }}</v-card-title>
+        <v-card-subtitle>{{ leccionSeleccionada.username }}</v-card-subtitle>
 
         <v-card-text>
-          <v-row align="center" class="mx-0">
-            <v-rating
-              :value="leccionSeleccionada.rating"
-              color="amber"
-              dense
-              half-increments
-              readonly
-              size="14"
-            ></v-rating>
-
-            <div class="grey--text ml-4">4.5 (413)</div>
-          </v-row>
-
-          <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
-
-          <div>
-            Small plates, salads & sandwiches - an intimate setting with 12
-            indoor seats plus patio seating.
-          </div>
+          {{ leccionSeleccionada.description }}
         </v-card-text>
 
         <v-divider class="mx-4"></v-divider>
 
         <v-card-actions>
-          <v-btn color="deep-purple lighten-2" text> Reserve </v-btn>
+          <v-btn color="primary" small block @click="goLeccion()">
+            {{ filter === "recomendadas" ? "tomar leccion" : "editar leccion" }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -122,11 +125,19 @@ export default {
       this.dialog = true;
       this.leccionSeleccionada = leccion;
     },
+    goLeccion() {
+      if (this.filter === "recomendadas") {
+        this.$router.push("/view_leccion/" + this.leccionSeleccionada.id);
+      }
+    },
   },
   async created() {
     try {
       if (this.filter === "creadas") {
         this.data = await LeccionesService.getLeccionesCreadas();
+      }
+      if (this.filter === "recomendadas") {
+        this.data = await LeccionesService.getLeccionesRecomendadas();
       }
     } catch (error) {
       this.$store.commit("raiseError", error.response.data.mensaje);
